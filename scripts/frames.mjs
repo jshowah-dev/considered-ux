@@ -19,7 +19,8 @@ export async function captureFrames({
   if ([click, hover, evaluate].filter(Boolean).length !== 1) throw new Error('give exactly one of click, hover or evaluate');
   if (!Number.isInteger(frames) || frames < 2) throw new Error('frames must be a whole number, at least 2');
   mkdirSync(outDir, { recursive: true });
-  const browser = await chromium.launch();
+  // Compositor-run animations (transform, opacity) keep their own clock, so a seek wouldn't reach the pixels: run them on the main thread.
+  const browser = await chromium.launch({ args: ['--disable-threaded-animation'] });
   try {
     const page = await browser.newPage({ viewport, reducedMotion: reducedMotion ? 'reduce' : 'no-preference' });
     await page.clock.install();
@@ -58,7 +59,7 @@ export async function captureFrames({
         await collect();
       }
     };
-    // Seeks each tracked animation to its own time at t, then forces style so the screenshot shows the seek.
+    // Seeks each tracked animation to its own time at t, then forces style.
     const seek = t => page.evaluate(ms => {
       for (const [a, start] of window.__frames.seen) {
         a.currentTime = Math.min(Math.max(0, ms - start), a.effect.getComputedTiming().endTime);
