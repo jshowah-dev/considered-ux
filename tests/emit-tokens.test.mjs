@@ -65,3 +65,10 @@ test('refuses to overwrite a hand-written file unless forced', () => {
 test('unknown target throws', () => {
   assert.throws(() => emit(sample, 'swift'), /Unknown target/);
 });
+
+test('rust output has a debug-only time scale for recording', () => {
+  const rs = emit(sample, 'rust');
+  assert.match(rs, /pub fn scaled\(d: std::time::Duration\) -> std::time::Duration/);
+  assert.match(rs, /MOTION_TIME_SCALE/);
+  assert.match(rs, /cfg!\(debug_assertions\)/);
+});

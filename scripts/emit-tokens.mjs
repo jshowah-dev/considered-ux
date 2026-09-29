@@ -81,7 +81,16 @@ export function emit(tokens, target) {
         + mod('easing', (n, v) => `    pub const ${n}: [f32; 4] = [${v.map(f32).join(', ')}];`)
         + mod('distance', (n, v) => `    pub const ${n}_PX: f32 = ${f32(v)};`)
         + mod('scale', (n, v) => `    pub const ${n}: f32 = ${f32(v)};`)
-        + mod('focus', (n, v) => `    pub const ${n}_PX: f32 = ${f32(v)};`);
+        + mod('focus', (n, v) => `    pub const ${n}_PX: f32 = ${f32(v)};`)
+        + '\n/// Debug builds only: MOTION_TIME_SCALE=10 slows every duration tenfold so motion can be recorded.\n'
+        + 'pub fn scaled(d: std::time::Duration) -> std::time::Duration {\n'
+        + '    if cfg!(debug_assertions) {\n'
+        + '        if let Some(s) = std::env::var("MOTION_TIME_SCALE").ok().and_then(|v| v.parse::<f32>().ok()).filter(|s| *s > 0.0) {\n'
+        + '            return d.mul_f32(s);\n'
+        + '        }\n'
+        + '    }\n'
+        + '    d\n'
+        + '}\n';
     }
     default:
       throw new Error(`Unknown target "${target}" (use css, scss, ts or rust)`);

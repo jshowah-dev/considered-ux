@@ -41,6 +41,6 @@ Acknowledge within 100 ms. Animate transform and opacity only. Never block input
 - Designing before the beliefs are confirmed.
 - Typing a raw duration or easing instead of a token.
 - A zombie tell with no stated reason.
-- Claiming motion was reviewed without frames (egui: say it wasn't recorded).
+- Claiming motion was reviewed without frames (egui records too: `references/stacks.md`).
 - A corner toast answering the user's own action.
 - Writing the skill's name, the kit or AI into a work repo.

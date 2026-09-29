@@ -22,4 +22,11 @@ Don't emit anything. Find the repo's existing motion and timing tokens and map e
 - `strip.mjs --dir <dir> --out <png>` rebuilds a strip from any folder of frames.
 
 ## egui recording
-Not yet proven; Task 9 of the implementation plan decides. Until then, egui runs report measurements (tokens used, nothing blocks input), hand motion review to the builder, and say so.
+1. Use tokens through `motion::scaled(motion::duration::…)`.
+2. Run a debug build with `MOTION_TIME_SCALE=10` and trigger the interaction.
+3. `powershell.exe -NoProfile -ExecutionPolicy Bypass -File <skill>/scripts/frames-native.ps1 -Title "<window title>" -Out <dir>` (50 frames, 100 ms apart = 5 s ≈ 0.5 s real time).
+4. `node <skill>/scripts/strip.mjs --dir <dir> --out <dir>/strip.png`.
+Release builds ignore `MOTION_TIME_SCALE`.
+- Each capture adds about 35 ms, so frames land about 135 ms apart; read timing from frame counts, not the nominal interval.
+- 50 frames make an unreadably wide strip. Copy the frames that span the transition into their own folder and strip those.
+- If `cargo build` fails with `link: extra operand`, Git Bash's GNU `link` is shadowing MSVC's. Build from a VS Build Tools environment (`vcvars64.bat`, then `cargo build`).
