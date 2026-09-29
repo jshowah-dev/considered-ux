@@ -56,9 +56,11 @@ tokens: write
 
 # Products
 <!-- One line per product, asked the first time the skill runs on it. -->
+- **murmur:** I want to hear and understand you.
 - **daily-planner:** We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security.
 - **freight-quote-demo:** We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security.
 
 # Ledger
 | Date | Repo | Feature | Moment | Belief | Tokens |
 |---|---|---|---|---|---|
+| 2026-09-29 | murmur | Dictionary editor | Typing a spoken form shows `hob → HAWB` under it; the result fades in and slides out from under the heard word | I want to hear and understand you | emphasis + easing.enter + distance.enter_px; list re-sort: emphasis + easing.standard |
