@@ -156,3 +156,25 @@ Same payload to both, built from the S1 baseline: the Task 4 strip plus the row 
 | Cost | 23 tool calls, about 8 minutes | 10 tool calls, about 1 minute |
 
 **Choice: sonnet.** Reason: it found every real tell, with measurements, and invented nothing; haiku found one of three parts of the recipe and invented findings the frames didn't show. Written into `references/editor-pass.md`.
+
+## Success-2: two apps, one source (Task 10 Step 3)
+The S1 skill run's `public/motion.css` (web) and the egui spike's `src/motion.rs` (Rust) were both emitted from `kits/jeff.tokens.json`:
+
+| Token | Kit | S1 `motion.css` | Spike `motion.rs` |
+|---|---|---|---|
+| hover | 150 | `--motion-duration-hover: 150ms` | `HOVER … from_millis(150)` |
+| enter | 150 | `--motion-duration-enter: 150ms` | `ENTER … from_millis(150)` |
+| bump | 350 | `--motion-duration-bump: 350ms` | `BUMP … from_millis(350)` |
+
+**Result: match.** Two apps in two stacks carry the same values from one source.
+
+## Blind pick (Task 10 Step 1)
+Both S1 planners were served on fresh ports, so the URLs didn't give them away (A on 4811, B on 4812). The mapping was randomized into a file that wasn't read until after the pick. Both opened on 2026-09-29, and each server's carry-forward made byte-identical notes with the same three open items.
+
+Question to Jeff: "Check off a few items in each. Which one feels like someone thought about you?"
+
+**Jeff's answer (verbatim):** "And B seem very similar, but I guess I would go with B."
+
+**Reveal:** A = baseline (no skill), B = considered-ux.
+
+**Reading:** the pick went to the skill version, but it was a weak preference ("very similar … I guess"), not a clear win. The two check-offs differ mostly in restraint: the baseline's spring overshoot, ripple and drawn-in tick against the skill's quiet fade plus the rule under a finished list. That difference is subtle in a browser tab, and the rule only shows once a whole list is done. Success criterion 1 is met as picked; how clearly it's met is open.
