@@ -1,0 +1,32 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>motion fixture</title>
+<style>
+  body { margin: 0; font: 14px system-ui; }
+  #box { width: 40px; height: 40px; background: #c33; transition: transform 400ms linear; }
+  #box.go { transform: translateX(200px); }
+  #bar { height: 10px; width: 0; background: #36c; }
+  #spin { width: 20px; height: 20px; background: #393; }
+  #spin.on { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { #box { transition: none; } }
+</style>
+<div><button id="go">Go</button><button id="js">JS</button><button id="spinner">Spin</button><button id="noop">Noop</button></div>
+<div id="box"></div>
+<div id="bar"></div>
+<div id="spin"></div>
+<script>
+  const $ = id => document.getElementById(id);
+  $('go').addEventListener('click', () => $('box').classList.add('go'));
+  $('spinner').addEventListener('click', () => $('spin').classList.add('on'));
+  $('noop').addEventListener('click', () => { document.title = 'clicked'; });
+  $('js').addEventListener('click', () => {
+    const t0 = performance.now();
+    const step = now => {
+      const p = Math.min(1, (now - t0) / 400);
+      $('bar').style.width = `${p * 200}px`;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+</script>
