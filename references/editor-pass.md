@@ -15,7 +15,7 @@ Capture every interaction you changed (in an Audit, every key interaction on the
 List anything that doesn't earn its place (motion, copy, chrome) and remove it.
 
 ## 3. Zombie critic
-Dispatch a fresh subagent (model: sonnet) and give it ONLY:
+Dispatch a fresh subagent (model: sonnet; in a side-by-side on the same strips, haiku invented findings the frames didn't show) and give it ONLY:
 - the strip paths
 - the visible text of the screens
 - the kit's beliefs and rules, pasted in
