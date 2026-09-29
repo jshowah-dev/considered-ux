@@ -19,6 +19,16 @@ test('stacks: every emit target, adopt mode and recording', () => {
   has(read('stacks.md'), ['--target css', '--target ts', '--target scss', '--target rust', 'Adopt mode', 'frames.mjs', 'egui']);
 });
 
+test('stacks: the egui row routes durations through scaled() so they can be recorded', () => {
+  const md = read('stacks.md');
+  assert.ok(md.includes('motion::scaled(motion::duration::ENTER)'), 'egui row uses scaled()');
+  assert.ok(!md.includes('motion::duration::ENTER.as_secs_f32()'), 'no unscaled duration in the egui row');
+});
+
+test("editor pass: the spec's five questions for every strip", () => {
+  has(read('editor-pass.md'), ['within 100 ms', "where the user's attention was", 'path that shows cause', 'settle cleanly', 'match the tokens']);
+});
+
 test('craft: grounding, grammar and the carved moment', () => {
   has(read('craft.md'), ['material', 'Exits run faster', 'interruptible', 'Reduced motion', 'The carved moment']);
 });

@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>busy fixture</title>
+<style>
+  body { margin: 0; font: 14px system-ui; background: #fff; }
+  .box { width: 40px; height: 40px; background: #c33; transition: transform 400ms linear; }
+  .box.go { transform: translateX(200px); }
+  #intro { animation: intro 10ms both; }
+  @keyframes intro { from { opacity: 0; } }
+  #pulse { width: 20px; height: 20px; background: #393; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { #quick { transition-duration: .01ms !important; } }
+  #cover { position: relative; display: inline-block; }
+  #shield { position: absolute; inset: 0; }
+  #spacer { height: 1500px; }
+</style>
+<div id="intro">
+  <button id="noop">Noop</button><button id="sync">Sync</button><button id="raf">rAF</button>
+  <button id="timeout">Timeout</button><button id="quick-go">Quick</button>
+  <span id="cover"><button id="covered">Covered</button><span id="shield"></span></span>
+</div>
+<div id="pulse"></div>
+<div class="box" id="b-sync"></div>
+<div class="box" id="b-raf"></div>
+<div class="box" id="b-timeout"></div>
+<div class="box" id="quick"></div>
+<div id="spacer"></div>
+<button id="far">Far</button>
+<div class="box" id="b-far"></div>
+<script>
+  const $ = id => document.getElementById(id);
+  $('noop').addEventListener('click', () => { document.title = 'clicked'; });
+  $('sync').addEventListener('click', () => $('b-sync').classList.add('go'));
+  $('raf').addEventListener('click', () => requestAnimationFrame(() => $('b-raf').classList.add('go')));
+  $('timeout').addEventListener('click', () => setTimeout(() => $('b-timeout').classList.add('go'), 0));
+  $('quick-go').addEventListener('click', () => $('quick').classList.add('go'));
+  $('covered').addEventListener('click', () => $('b-sync').classList.add('go'));
+  $('far').addEventListener('click', () => $('b-far').classList.add('go'));
+</script>

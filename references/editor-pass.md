@@ -9,7 +9,7 @@ Start where a user starts (a cold open, not the screen you changed) and go to th
 - **Consistency:** same durations, easing and feedback style as the neighbors. A mismatch is a defect.
 - **Problem solved?** Does the user reach the goal faster and with less doubt than before? If not, "feels good" doesn't matter yet.
 
-Capture every interaction you changed (in an Audit, every key interaction on the journey, as it is today) with `scripts/frames.mjs`, once normally and once with `--reduced-motion`. Open each strip and look at it before you describe it.
+Capture every interaction you changed (in an Audit, every key interaction on the journey, as it is today) with `scripts/frames.mjs`, once normally and once with `--reduced-motion`. Open each strip and look at it before you describe it. Ask five questions of every strip: does it respond within 100 ms, start where the user's attention was, follow a path that shows cause, settle cleanly, and match the tokens?
 
 ## 2. Cut
 List anything that doesn't earn its place (motion, copy, chrome) and remove it.
