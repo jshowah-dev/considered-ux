@@ -1,6 +1,6 @@
 ---
 family: jeff
-repos: {murmur: full, daily-planner: full, freight-quote-demo: moment, customer-leak-audit: moment}
+repos: {murmur: full, daily-planner: full, freight-quote-demo: moment, customer-leak-audit: moment, consulting-site: moment}
 tokens: write
 ---
 # What we believe
@@ -59,8 +59,11 @@ tokens: write
 - **murmur:** I want to hear and understand you.
 - **daily-planner:** We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security.
 - **freight-quote-demo:** We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security.
+- **consulting-site:** We free our customers to do what they love and what they're good at.
 
 # Ledger
 | Date | Repo | Feature | Moment | Belief | Tokens |
 |---|---|---|---|---|---|
 | 2026-09-29 | murmur | Dictionary editor | Typing a spoken form shows `hob → HAWB` under it; the result fades in and slides out from under the heard word | I want to hear and understand you | emphasis + easing.enter + distance.enter_px; list re-sort: emphasis + easing.standard |
+| 2026-09-29 | murmur | About window | Credits in the app's voice ("Heard by Parakeet… · Understood through sherpa-onnx") plus "Knows N of your words" | I want to hear and understand you | none (copy only) |
+| 2026-09-29 | consulting-site | Hero | Mess → process: a tangled ball of freight tiles unwinds into a diagonal lane of evidence cards (RFQ → quote → booking → invoice); after two passes it rests on the lane and replays on scroll-back | We free our customers to do what they love and what they're good at | timeline.js (hero loop, spec § 2); fallback line: enter + easing.enter + distance.enter |
