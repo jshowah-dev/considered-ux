@@ -49,6 +49,20 @@ In [Murmur](https://github.com/jshowah-dev/murmur), an offline dictation app wri
 | **Zombie tells** | 10 banned defaults, each with what to do instead ([`references/zombie-tells.md`](references/zombie-tells.md)) |
 | **Frame strips** | Playwright-based, deterministic frame seeking, normal plus reduced motion. There's a native-window capture for desktop apps. |
 
+## More than a prompt file
+
+Most skills are a single `SKILL.md` of instructions. This one uses the rest of the skill format:
+
+| | Typical single-file skill | considered-ux |
+|---|---|---|
+| **Instructions** | Everything in one file, loaded every time | A short `SKILL.md` that points to `references/`, read only at the step that needs them |
+| **Memory** | None; each run starts from scratch | **Kits** hold your beliefs, rules and a ledger of past moments. Claude reads and writes them, so one feature shapes the next. |
+| **Tools** | Claude improvises | **Scripts** for what Claude does badly by hand: checking kits, emitting tokens, recording frames |
+| **Checking its own work** | Claude says it's done | **Frame strips.** Claude can't watch an animation, but it can look at eight screenshots of one. |
+| **Tests** | Rarely | 40 unit tests, plus scenarios run with and without the skill |
+
+Separating the method (`SKILL.md`) from the taste (a kit) is what makes it forkable: write your own kit and you get *your* style, not mine. The cost is weight. It needs Node, Playwright and Chromium, where a single-file skill runs with nothing installed.
+
 ## Install
 
 ```bash
