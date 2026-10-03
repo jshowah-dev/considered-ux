@@ -1,0 +1,8 @@
+{
+  "name": "considered-ux",
+  "description": "UX craft for Claude Code: kits of beliefs and rules, motion tokens, and frame strips so Claude can check its own animation.",
+  "author": { "name": "Jeff Showah" },
+  "homepage": "https://github.com/jshowah-dev/considered-ux",
+  "repository": "https://github.com/jshowah-dev/considered-ux",
+  "license": "MIT"
+}

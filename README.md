@@ -59,11 +59,24 @@ Most skills are a single `SKILL.md` of instructions. This one uses the rest of t
 | **Memory** | None; each run starts from scratch | **Kits** hold your beliefs, rules and a ledger of past moments. Claude reads and writes them, so one feature shapes the next. |
 | **Tools** | Claude improvises | **Scripts** for what Claude does badly by hand: checking kits, emitting tokens, recording frames |
 | **Checking its own work** | Claude says it's done | **Frame strips.** Claude can't watch an animation, but it can look at eight screenshots of one. |
-| **Tests** | Rarely | 40 unit tests, plus scenarios run with and without the skill |
+| **Tests** | Rarely | 48 unit tests, plus scenarios run with and without the skill |
 
 Separating the method (`SKILL.md`) from the taste (a kit) is what makes it forkable: write your own kit and you get *your* style, not mine. The cost is weight. It needs Node, Playwright and Chromium, where a single-file skill runs with nothing installed.
 
 ## Install
+
+In Claude Code (2.1.275 or later):
+
+```
+/plugin install considered-ux --marketplace jshowah-dev/considered-ux
+```
+
+Claude Code installs the Node packages with the plugin. Chromium (about 150 MB) is only needed for frame strips; the first time one is needed, the skill prints the one command that installs it. Node must be on your PATH.
+
+Claude Code picks the skill up for UI work, or you can ask directly: "give this a UX pass".
+
+<details>
+<summary>Manual install, to edit the skill</summary>
 
 ```bash
 git clone https://github.com/jshowah-dev/considered-ux ~/.claude/skills/considered-ux
@@ -72,17 +85,14 @@ npm install
 npx playwright install chromium
 ```
 
-Claude Code picks the skill up for UI work, or you can ask directly: "give this a UX pass".
+Don't install the plugin as well, or the skill loads twice.
+</details>
 
 ## Make your own kit
 
-[`kits/jeff.md`](kits/jeff.md) is a real kit: 3 beliefs, 9 rules, products and a ledger. For your own product family, copy [`kits/_template.md`](kits/_template.md) to `kits/<family>.md` and [`kits/_template.tokens.json`](kits/_template.tokens.json) to `kits/<family>.tokens.json` (starting timings; tune them to taste). The skill runs the belief interview the first time. Then check the kit:
+[`kits/jeff.md`](kits/jeff.md) is a real kit: 3 beliefs, 9 rules, products and a ledger. For your own product family, copy [`kits/_template.md`](kits/_template.md) to `~/.claude/considered-ux/kits/<family>.md` and [`kits/_template.tokens.json`](kits/_template.tokens.json) to `~/.claude/considered-ux/kits/<family>.tokens.json` (starting timings; tune them to taste). The skill runs the belief interview the first time. Then ask Claude to check the kit, or run `scripts/kit.mjs --check <kit.md>` from the skill folder.
 
-```bash
-node scripts/kit.mjs --check kits/<family>.md
-```
-
-Kits matching `kits/work*` are gitignored, so your employer's kit never enters your history. In a work repo, the skill never writes its own name, the kit or AI into the code.
+Kits in `~/.claude/considered-ux/kits/` are read before the bundled ones and live outside the skill folder, so a plugin update never touches them and they never enter this repo's history. In a work repo, the skill never writes its own name, the kit or AI into the code.
 
 ## Evidence
 
@@ -104,7 +114,7 @@ In a blind side-by-side, I picked the skill's version, but narrowly. The differe
 | `references/` | Craft notes, editor pass, zombie tells, per-stack token guidance |
 | `kits/` | The template and one real kit |
 | `scripts/` | `kit.mjs` (parse and check kits), `emit-tokens.mjs` (CSS/Rust tokens), `frames.mjs` / `frames-native.ps1` (frame strips) |
-| `tests/` | 40 unit tests (`npm test`), scenarios, baselines and results |
+| `tests/` | 48 unit tests (`npm test`), scenarios, baselines and results |
 
 For palette and font choices when a project has none, the skill can use [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill). It's optional.
 

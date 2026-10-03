@@ -7,6 +7,17 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
+export function explainLaunchError(e) {
+  if (!/Executable doesn't exist/.test(e.message)) return e;
+  // Run the skill's own Playwright so the browser matches the pinned version.
+  const cli = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'node_modules', 'playwright', 'cli.js');
+  return new Error(`Chromium isn't installed. Install it once (about 150 MB) with: node "${cli}" install chromium`);
+}
+
+export async function launchChromium(options) {
+  try { return await chromium.launch(options); } catch (e) { throw explainLaunchError(e); }
+}
+
 export async function composeStrip(frames, outFile, { title = '' } = {}) {
   if (!frames.length) throw new Error('no frames to compose');
   const out = resolve(outFile);
@@ -21,7 +32,7 @@ figure{margin:0}img{display:block;max-width:320px;border:1px solid #ccc}figcapti
 </style>${title ? `<h1>${esc(title)}</h1>` : ''}<div class="row">${cells}</div>`;
   const htmlFile = `${out.replace(/\.png$/i, '')}.html`;
   writeFileSync(htmlFile, html);
-  const browser = await chromium.launch();
+  const browser = await launchChromium();
   try {
     const page = await browser.newPage({ viewport: { width: Math.min(frames.length * 330 + 24, 4000), height: 200 } });
     await page.goto(pathToFileURL(htmlFile).href);

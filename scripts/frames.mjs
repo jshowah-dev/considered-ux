@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 // Captures one interaction as a frame strip: a "before" frame, then evenly spaced frames across its motion.
-import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { composeStrip } from './strip.mjs';
+import { composeStrip, launchChromium } from './strip.mjs';
 
 const USAGE = 'usage: frames.mjs --url <url> (--click <sel> | --hover <sel> | --eval <js>) [--frames 6] [--duration <ms>] '
   + '[--max 2000] [--clip <sel>] [--probe <sel>] [--reduced-motion] [--out <dir>] [--title <text>]';
@@ -20,7 +19,7 @@ export async function captureFrames({
   if (!Number.isInteger(frames) || frames < 2) throw new Error('frames must be a whole number, at least 2');
   mkdirSync(outDir, { recursive: true });
   // Compositor-run animations (transform, opacity) keep their own clock, so a seek wouldn't reach the pixels: run them on the main thread.
-  const browser = await chromium.launch({ args: ['--disable-threaded-animation'] });
+  const browser = await launchChromium({ args: ['--disable-threaded-animation'] });
   try {
     const page = await browser.newPage({ viewport, reducedMotion: reducedMotion ? 'reduce' : 'no-preference' });
     await page.clock.install();

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Reads and checks design kits (kits/<family>.md) and maps a repo folder to its family.
-import { readFileSync, readdirSync } from 'node:fs';
+// Reads and checks design kits (<family>.md) and maps a repo folder to its family.
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
@@ -8,6 +9,8 @@ import YAML from 'yaml';
 export const DIALS = ['restrained', 'moment', 'full'];
 export const TOKEN_MODES = ['write', 'adopt'];
 const KITS_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'kits');
+// User kits live outside the skill folder so a plugin update can't overwrite them.
+export const USER_KITS_DIR = join(homedir(), '.claude', 'considered-ux', 'kits');
 
 export function parseKit(md) {
   const m = md.replace(/\r\n/g, '\n').match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -55,14 +58,20 @@ export function validateKit(kit) {
   return errors;
 }
 
-export function familyFor(repo, kitsDir = KITS_DIR) {
-  const hits = [];
-  for (const f of readdirSync(kitsDir).filter(n => n.endsWith('.md') && !n.startsWith('_')).sort()) {
-    const kit = parseKit(readFileSync(join(kitsDir, f), 'utf8'));
-    if (Object.hasOwn(kit.repos, repo)) hits.push({ family: kit.family, dial: kit.repos[repo], tokens: kit.tokens, file: join(kitsDir, f) });
+export function familyFor(repo, kitsDirs = [USER_KITS_DIR, KITS_DIR]) {
+  // The first folder with a match wins, so a user kit overrides a bundled one.
+  for (const kitsDir of [kitsDirs].flat().filter(d => existsSync(d))) {
+    const hits = [];
+    for (const f of readdirSync(kitsDir).filter(n => n.endsWith('.md') && !n.startsWith('_')).sort()) {
+      const kit = parseKit(readFileSync(join(kitsDir, f), 'utf8'));
+      if (Object.hasOwn(kit.repos, repo)) {
+        hits.push({ family: kit.family, dial: kit.repos[repo], tokens: kit.tokens, file: join(kitsDir, f), tokensFile: join(kitsDir, `${kit.family}.tokens.json`) });
+      }
+    }
+    if (hits.length > 1) throw new Error(`${repo} is listed in more than one kit: ${hits.map(h => h.family).join(', ')}`);
+    if (hits.length) return hits[0];
   }
-  if (hits.length > 1) throw new Error(`${repo} is listed in more than one kit: ${hits.map(h => h.family).join(', ')}`);
-  return hits[0] ?? null;
+  return null;
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -73,7 +82,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       if (errors.length) { console.error(`${basename(value)}:\n- ${errors.join('\n- ')}`); process.exit(1); }
       console.log(`${basename(value)}: ok`);
     } else if (flag === '--family-for' && value) {
-      console.log(JSON.stringify(familyFor(value, kitsFlag === '--kits' ? kitsDir : KITS_DIR)));
+      console.log(JSON.stringify(kitsFlag === '--kits' ? familyFor(value, kitsDir) : familyFor(value)));
     } else {
       throw new Error('usage: kit.mjs --check <kit.md> | --family-for <repo-folder-name> [--kits <dir>]');
     }

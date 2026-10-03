@@ -5,10 +5,10 @@ description: Use when building, reworking, reviewing or polishing a user interfa
 
 # Considered UX
 
-Users should feel the builder thought about them: small details kept consistent across windows, features and apps, plus one hand-carved moment that surprises through feel. The enemy is zombie UI, the most probable answer, which fits any product. Folder: `~/.claude/skills/considered-ux/`.
+Users should feel the builder thought about them: small details kept consistent across windows, features and apps, plus one hand-carved moment that surprises through feel. The enemy is zombie UI, the most probable answer, which fits any product. Folder (`<skill>`): `${CLAUDE_SKILL_DIR}`.
 
 ## 1. Kit and beliefs first
-- Find the family: `node ~/.claude/skills/considered-ux/scripts/kit.mjs --family-for <repo-folder-name>`. On `null`, ask the builder which family, or start one from `kits/_template.md` (and `kits/_template.tokens.json` → `kits/<family>.tokens.json`).
+- Find the family: `node "${CLAUDE_SKILL_DIR}/scripts/kit.mjs" --family-for <repo-folder-name>`. On `null`, ask which family, or start `<family>.md` and `<family>.tokens.json` in `~/.claude/considered-ux/kits/` from `kits/_template.md` and `kits/_template.tokens.json`.
 - Read the kit: beliefs, rules, dial, tokens mode, products, ledger.
 - **Beliefs gate** (Feature and Audit): offer no direction until you know what we believe. If the beliefs are missing or thin, run the belief interview in `kits/_template.md`. Drafts from site copy or a README are fine; the builder confirms before you continue. On the first run for a product, ask for its one-line belief and add it under Products.
 

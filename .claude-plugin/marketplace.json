@@ -1,0 +1,14 @@
+{
+  "name": "considered-ux",
+  "description": "The considered-ux skill as a one-plugin marketplace.",
+  "owner": {
+    "name": "Jeff Showah"
+  },
+  "plugins": [
+    {
+      "name": "considered-ux",
+      "source": "./",
+      "description": "UX craft for Claude Code: kits of beliefs and rules, motion tokens, and frame strips so Claude can check its own animation."
+    }
+  ]
+}

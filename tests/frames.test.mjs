@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { pathToFileURL } from 'node:url';
 import { chromium } from 'playwright';
 import { captureFrames } from '../scripts/frames.mjs';
-import { stripFromDir } from '../scripts/strip.mjs';
+import { stripFromDir, explainLaunchError } from '../scripts/strip.mjs';
 
 const url = pathToFileURL(resolve('tests/fixtures/motion.html')).href;
 const busy = pathToFileURL(resolve('tests/fixtures/busy.html')).href;
@@ -129,4 +129,12 @@ test('each frame shows the seeked state, not the state before the seek', async (
 test('a clip on a moving element is measured once, so the motion shows', async () => {
   const r = await captureFrames({ url, click: '#go', frames: 3, clip: '#box', outDir: outDir() });
   assert.ok(!readFileSync(r.frames[1].file).equals(readFileSync(r.frames.at(-1).file)), 'first and last crops differ');
+});
+
+test('a missing Chromium explains the one command that installs it', () => {
+  const e = explainLaunchError(new Error("browserType.launch: Executable doesn't exist at C:\\pw\\chrome.exe\nLooks like Playwright was just installed"));
+  assert.match(e.message, /node ".+cli\.js" install chromium/);
+  assert.ok(existsSync(e.message.match(/"(.+)"/)[1]), 'the command points at the installed Playwright');
+  const other = new Error('something else');
+  assert.equal(explainLaunchError(other), other);
 });

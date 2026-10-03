@@ -65,3 +65,17 @@ test('familyFor finds the family, returns null for unknown repos, and rejects du
   writeFileSync(join(dir, 'other.md'), fixture().replace('family: jeff', 'family: other'));
   assert.throws(() => familyFor('murmur', dir), /more than one kit: jeff, other/);
 });
+
+test('familyFor reads the user kits before the bundled ones and names the tokens file', () => {
+  const user = mkdtempSync(join(tmpdir(), 'cx user kits '));
+  const bundled = mkdtempSync(join(tmpdir(), 'cx bundled kits '));
+  writeFileSync(join(bundled, 'jeff.md'), fixture());
+  const fallback = familyFor('murmur', [user, bundled]);
+  assert.equal(fallback.family, 'jeff');
+  assert.equal(fallback.tokensFile, join(bundled, 'jeff.tokens.json'));
+  writeFileSync(join(user, 'mine.md'), fixture().replace('family: jeff', 'family: mine'));
+  const own = familyFor('murmur', [user, bundled]);
+  assert.equal(own.family, 'mine', 'a user kit wins over a bundled kit listing the same repo');
+  assert.equal(own.tokensFile, join(user, 'mine.tokens.json'));
+  assert.equal(familyFor('murmur', [join(user, 'missing'), bundled]).family, 'jeff', 'a missing user folder is skipped');
+});
