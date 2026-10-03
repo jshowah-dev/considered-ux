@@ -1,0 +1,7 @@
+{
+  "duration": { "hover": 150, "enter": 150, "exit": 100, "emphasis": 300, "bump": 350, "fill": 400, "confirm": 1000, "locate": 1200, "readPerChar": 60 },
+  "easing": { "standard": [0.25, 0.1, 0.25, 1], "enter": [0, 0, 0.58, 1], "exit": [0.42, 0, 1, 1] },
+  "distance": { "enter": 10 },
+  "scale": { "bump": 1.4 },
+  "focus": { "width": 2, "offset": 2 }
+}

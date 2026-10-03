@@ -76,7 +76,7 @@ Claude Code picks the skill up for UI work, or you can ask directly: "give this 
 
 ## Make your own kit
 
-[`kits/jeff.md`](kits/jeff.md) is a real kit: 3 beliefs, 9 rules, products and a ledger. For your own product family, copy [`kits/_template.md`](kits/_template.md) to `kits/<family>.md`. The skill runs the belief interview the first time. Then check the kit:
+[`kits/jeff.md`](kits/jeff.md) is a real kit: 3 beliefs, 9 rules, products and a ledger. For your own product family, copy [`kits/_template.md`](kits/_template.md) to `kits/<family>.md` and [`kits/_template.tokens.json`](kits/_template.tokens.json) to `kits/<family>.tokens.json` (starting timings; tune them to taste). The skill runs the belief interview the first time. Then check the kit:
 
 ```bash
 node scripts/kit.mjs --check kits/<family>.md

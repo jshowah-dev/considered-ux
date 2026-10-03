@@ -37,6 +37,10 @@ test('the jeff tokens validate and keep the harvested values', () => {
   assert.ok(t.duration.exit < t.duration.enter, 'exits run faster than entrances');
 });
 
+test('the template tokens validate, so a new family can copy them', () => {
+  assert.deepEqual(validateTokens(JSON.parse(readFileSync('kits/_template.tokens.json', 'utf8'))), []);
+});
+
 test('a Why that names a missing belief is an error', () => {
   const bad = fixture().replace('- **Why:** Belief 1', '- **Why:** Belief 7');
   assert.match(validateKit(parseKit(bad)).join('\n'), /Why must start with "Belief N"/);
