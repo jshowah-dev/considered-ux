@@ -1,6 +1,6 @@
 ---
 family: jeff
-repos: {murmur: full, daily-planner: full, freight-quote-demo: moment, customer-leak-audit: moment, consulting-site: moment}
+repos: {murmur: full, daily-planner: full, freight-quote-demo: moment, customer-leak-audit: moment, consulting-site: moment, journal-hub: moment}
 tokens: write
 ---
 # What we believe
@@ -60,6 +60,8 @@ tokens: write
 - **daily-planner:** We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security.
 - **freight-quote-demo:** We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security.
 - **consulting-site:** We free our customers to do what they love and what they're good at.
+- **customer-leak-audit:** We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security.
+- **journal-hub:** You always know where everything stands, without digging.
 
 # Ledger
 | Date | Repo | Feature | Moment | Belief | Tokens |
@@ -67,3 +69,9 @@ tokens: write
 | 2026-09-29 | murmur | Dictionary editor | Typing a spoken form shows `hob → HAWB` under it; the result fades in and slides out from under the heard word | I want to hear and understand you | emphasis + easing.enter + distance.enter_px; list re-sort: emphasis + easing.standard |
 | 2026-09-29 | murmur | About window | Credits in the app's voice ("Heard by Parakeet… · Understood through sherpa-onnx") plus "Knows N of your words" | I want to hear and understand you | none (copy only) |
 | 2026-09-29 | consulting-site | Hero | Mess → process: a tangled ball of freight tiles unwinds into a diagonal lane of evidence cards (RFQ → quote → booking → invoice); after two passes it rests on the lane and replays on scroll-back | We free our customers to do what they love and what they're good at | timeline.js (hero loop, spec § 2); fallback line: enter + easing.enter + distance.enter |
+| 2026-09-30 | murmur | Pill | Your words fly home: on key release a mote arcs from the pill to your caret, breathes there while the speech is transcribed, and dissolves into the words; everyday: growth, voice ribbon, cursor-side glow, landing pulse | I want to hear and understand you | flight 300 ms (break) + easing.enter + upward arc 0.2·len; settle breath duration.locate; dissolve/fade duration.exit + easing.exit; voice rise 40 ms (break), fall duration.fill; growth enter/exit + easing.standard; pulse duration.emphasis |
+| 2026-10-02 | murmur | Answers where you acted | The mote speaks: it stretches into a capsule above the caret holding "Didn't catch that", "Replaced" or "Learned hob → HAWB", holds for read time, pulls back to a dot and dissolves | I want to hear and understand you | flight FLIGHT (break) + easing.enter; unfurl duration.enter + easing.enter; hold max(duration.locate, duration.readPerChar × chars); furl duration.exit + easing.exit |
+| 2026-10-03 | murmur | First run | The card goes home: "Ready", the setup card fades to the mote's dot, which arcs to the pill and says "Hold Right Ctrl and talk" until you press the key | I want to hear and understand you | beat duration.locate; fade duration.exit + easing.exit; carry FLIGHT (break) + easing.enter; unfurl duration.enter + easing.enter; hold until dismissed |
+| 2026-10-03 | customer-leak-audit | Report look (Worksheet port) | The lane at a glance: under the verdict, the five checks sit as tiles on the logo's lane, nearest the sale first; fill shows each check's worst result (leak solid, worth a look outlined, looks good muted, couldn't check dashed) and each tile links to its card; vertical on phones | We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security. | none (static, no motion) |
+| 2026-10-03 | journal-hub | Link a loose item (Suggest → ✓) | The link lands: the item's text slides from its row into its project in the sidebar and that count bumps; the loose count bumps as it lets go. Reduced motion: the project lights up where it landed | You always know where everything stands, without digging | flight duration.emphasis + easing.enter (fill forwards, timer-removed); count bump scale.bump + duration.bump + easing.standard; reduced: highlight duration.locate; row dim duration.exit + easing.exit |
+| 2026-10-03 | freight-quote-demo | Demo video (Playwright stage + ffmpeg) | Builder picked all three: (A) evidence thread — a line draws from the hovered value to its source sentence, which lights up; (B) the lane — the title-card process line travels up into a rail whose marker glides step to step, branching for ask/route/status; (C) the quote leaves the desk — on Approve the draft lifts as paper and slides out toward the customer, then settles on the closing card | We care deeply about serving and helping the customer accomplish their goals. We care deeply about trust and security. | camera duration.locate + easing.standard; callouts emphasis/enter in, exit/exit out, distance.enter; rail glide duration.emphasis; thread draw 800 ms (break) + easing.enter; paper lift duration.emphasis, fly 800 ms (break) + easing.exit, settle 1100 ms (break) + easing.enter |
