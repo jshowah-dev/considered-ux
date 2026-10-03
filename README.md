@@ -71,6 +71,13 @@ In Claude Code (2.1.275 or later):
 /plugin install considered-ux --marketplace jshowah-dev/considered-ux
 ```
 
+Or from a terminal:
+
+```bash
+claude plugin marketplace add jshowah-dev/considered-ux
+claude plugin install considered-ux@considered-ux
+```
+
 Claude Code installs the Node packages with the plugin. Chromium (about 150 MB) is only needed for frame strips; the first time one is needed, the skill prints the one command that installs it. Node must be on your PATH.
 
 Claude Code picks the skill up for UI work, or you can ask directly: "give this a UX pass".
