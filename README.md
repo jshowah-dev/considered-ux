@@ -20,6 +20,8 @@ Same app, same prompt ("rework what happens when the user checks off a checklist
 
 The carved moment went somewhere else. Ticking the *last* item on a list draws a fine rule under it, left to right, and the rule stays. Finishing a list is the one place the app gets expressive.
 
+**On a whole app.** The skill audited four screens of my own dashboard (Overview, Views, Usage, Week), fixed the top four findings, and a fresh reviewer checked the result. [Watch the 33-second before/after](assets/journal-hub-before-after.mp4) (sample data, same data on both sides).
+
 ## How it works
 
 ```
