@@ -12,7 +12,7 @@ test('zombie tells: a table of at least 9 tells and the two-question check', () 
 });
 
 test('editor pass: journey walk, reduced motion, isolated critic, and the fallback', () => {
-  has(read('editor-pass.md'), ['Walk the journey', '--reduced-motion', 'Never include your reasoning', 'critic-request.md']);
+  has(read('editor-pass.md'), ['Walk the journey', '--reduced-motion', 'Never include your reasoning', 'critic-request.md', 'scripts/shots.mjs', 'the still paths']);
 });
 
 test('stacks: every emit target, adopt mode and recording', () => {

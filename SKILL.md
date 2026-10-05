@@ -23,7 +23,7 @@ Users should feel the builder thought about them: small details kept consistent 
 1. Ground the moment: `references/craft.md`.
 2. Directions for the carved moment, as the dial sets. Each passes the check in `references/zombie-tells.md` and names its belief. Stop; the builder picks.
 3. Build: rules everywhere, the moment in one place, tokens per `references/stacks.md`. The floor always applies.
-4. Frames: `scripts/frames.mjs` for each changed interaction, normal and `--reduced-motion`. Fix what they show before presenting.
+4. Frames: `scripts/frames.mjs` per interaction, normal and `--reduced-motion`; `scripts/shots.mjs` per screen. Fix what they show.
 5. Editor pass and zombie critic: `references/editor-pass.md`.
 6. Log the moment in the ledger. New rules go in only when the builder approves; then run `kit.mjs --check`.
 

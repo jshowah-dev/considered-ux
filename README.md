@@ -30,7 +30,7 @@ beliefs  →  kit rules  →  one carved moment  →  frames  →  editor pass
 2. **Kit rules everywhere.** A kit is a Markdown file of rules, and each rule is tied to a belief:
    > **Answer where they acted.** Feedback appears at the button, caret or row the user acted on, not in a corner toast. *Why: Belief 1.* *Feel: "It answered me right where I was looking."*
 3. **Directions for the moment.** It offers 2–3 directions, one of them deliberately weird. Each passes the zombie check ("would a generic model produce this for any similar app?") and names its belief. You pick.
-4. **Frames, not vibes.** `scripts/frames.mjs` records each changed interaction as a frame strip, normally and with reduced motion. Claude looks at the strips and fixes what they show before presenting anything.
+4. **Frames, not vibes.** `scripts/frames.mjs` records each changed interaction as a frame strip, normally and with reduced motion. `scripts/shots.mjs` shoots each changed screen, so changes that don't move get seen too. Claude looks at the strips and stills and fixes what they show before presenting anything.
 5. **Editor pass and ledger.** A final critique pass, then the moment is logged in the kit, so the next feature doesn't repeat it.
 
 A **floor** applies to every change, however small: acknowledge input within 100 ms, animate transform and opacity only, never block input, keep focus visible with AA contrast, keep the meaning under reduced motion, and use tokens instead of raw durations.
@@ -120,7 +120,7 @@ In a blind side-by-side, I picked the skill's version, but narrowly. The differe
 | `SKILL.md` | The skill itself: kit and beliefs gate, sizing, feature loop, dial, floor, red flags |
 | `references/` | Craft notes, editor pass, zombie tells, per-stack token guidance |
 | `kits/` | The template and one real kit |
-| `scripts/` | `kit.mjs` (parse and check kits), `emit-tokens.mjs` (CSS/Rust tokens), `frames.mjs` / `frames-native.ps1` (frame strips) |
+| `scripts/` | `kit.mjs` (parse and check kits), `emit-tokens.mjs` (CSS/Rust tokens), `frames.mjs` / `frames-native.ps1` (frame strips), `shots.mjs` (screen stills, per colour scheme) |
 | `tests/` | 48 unit tests (`npm test`), scenarios, baselines and results |
 
 For palette and font choices when a project has none, the skill can use [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill). It's optional.

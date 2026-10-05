@@ -4,10 +4,10 @@ import { mkdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { composeStrip, launchChromium } from './strip.mjs';
+import { composeStrip, launchChromium, parseViewport } from './strip.mjs';
 
 const USAGE = 'usage: frames.mjs --url <url> (--click <sel> | --hover <sel> | --eval <js>) [--frames 6] [--duration <ms>] '
-  + '[--max 2000] [--clip <sel>] [--probe <sel>] [--reduced-motion] [--out <dir>] [--title <text>]';
+  + '[--max 2000] [--clip <sel>] [--probe <sel>] [--viewport 900x600] [--reduced-motion] [--out <dir>] [--title <text>]';
 
 export async function captureFrames({
   url, click, hover, evaluate, frames = 6, duration, maxMs = 2000, clip, probe,
@@ -155,7 +155,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   captureFrames({
     url: a.url, click: a.click, hover: a.hover, evaluate: a.eval,
     frames: num(a.frames), duration: num(a.duration), maxMs: num(a.max),
-    clip: a.clip, probe: a.probe, reducedMotion: a.reducedMotion, outDir: a.out, title: a.title,
+    clip: a.clip, probe: a.probe, viewport: parseViewport(a.viewport), reducedMotion: a.reducedMotion, outDir: a.out, title: a.title,
   })
     .then(r => console.log(JSON.stringify({
       strip: r.strip, frames: r.frames.map(f => f.file), animations: r.animations, endMs: r.endMs, capped: r.capped, note: r.note,

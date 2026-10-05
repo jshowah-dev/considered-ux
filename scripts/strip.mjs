@@ -14,6 +14,14 @@ export function explainLaunchError(e) {
   return new Error(`Chromium isn't installed. Install it once (about 150 MB) with: node "${cli}" install chromium`);
 }
 
+// "1280x800" -> { width, height }; undefined stays undefined so callers keep their default.
+export function parseViewport(v) {
+  if (v === undefined) return undefined;
+  const m = /^(\d{2,5})x(\d{2,5})$/.exec(String(v));
+  if (!m) throw new Error('viewport must be WIDTHxHEIGHT, e.g. 1280x800');
+  return { width: Number(m[1]), height: Number(m[2]) };
+}
+
 export async function launchChromium(options) {
   try { return await chromium.launch(options); } catch (e) { throw explainLaunchError(e); }
 }
