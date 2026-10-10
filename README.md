@@ -67,13 +67,7 @@ Separating the method (`SKILL.md`) from the taste (a kit) is what makes it forka
 
 ## Install
 
-In Claude Code (2.1.275 or later):
-
-```
-/plugin install considered-ux --marketplace jshowah-dev/considered-ux
-```
-
-Or from a terminal:
+From a terminal, with Claude Code 2.1.275 or later:
 
 ```bash
 claude plugin marketplace add jshowah-dev/considered-ux
